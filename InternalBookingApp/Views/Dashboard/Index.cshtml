@@ -1,0 +1,43 @@
+﻿@{
+    Layout = "_Layout";
+}
+@model IEnumerable<InternalBookingApp.Models.Booking>
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h2>Upcoming Bookings (Next 7 Days)</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">No bookings found for today or the next 7 days.</div>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead class="table-light">
+            <tr>
+                <th>ID</th>
+                <th>Resource</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Booked By</th>
+                <th>Purpose</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var booking in Model)
+            {
+                <tr>
+                    <td>@booking.Id</td>
+                    <td>@booking.Resource?.Name</td>
+                    <td>@booking.StartTime.ToString("g")</td>
+                    <td>@booking.EndTime.ToString("g")</td>
+                    <td>@booking.BookedBy</td>
+                    <td>@booking.Purpose</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
